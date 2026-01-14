@@ -1,0 +1,67 @@
+# Planar Object Measurement Using Homography
+
+This project demonstrates a Python-based computer vision pipeline to
+measure the length and breadth of a planar object face from a single image,
+even when the object is viewed at an angle.
+
+The core idea is to remove perspective distortion using homography so that
+pixel measurements become geometrically meaningful.
+
+---
+
+## Problem Statement
+
+In a perspective image, pixel distances are distorted and cannot be directly
+used for real-world measurement. This project addresses that by:
+
+- Detecting the four corners of a planar object face
+- Rectifying the face to a front-facing (top-down) view
+- Measuring dimensions in pixel space
+- Converting pixel measurements to real-world units using a known reference
+
+---
+
+## Key Features
+
+- Automatic detection of a rectangular planar face
+- Manual 4-corner selection fallback using a GUI (mouse clicks)
+- Perspective rectification using homography
+- Length and breadth measurement after rectification
+- Designed for clarity and explainability rather than black-box behavior
+
+---
+
+## High-Level Pipeline
+
+1. Capture or load an image
+2. Preprocess the image (grayscale, blur, edge detection)
+3. Detect contours and approximate a 4-corner quadrilateral
+4. (Fallback) Manually select corners if auto-detection fails
+5. Compute homography from detected corners
+6. Warp the image to a front-facing view
+7. Measure edge lengths in pixel space
+8. Convert pixel measurements to real-world units
+
+---
+
+## Why Homography?
+
+A planar surface viewed at an angle undergoes perspective distortion.
+Homography provides a projective transformation that maps the tilted plane
+to a rectangular, front-facing view, where distances are linearly related
+to real-world dimensions.
+
+This approach assumes the object face is planar and rigid.
+
+---
+
+## Assumptions and Limitations
+
+- The measured surface is planar
+- The full face is visible in the image
+- At least one real-world reference dimension is known
+- Only length and breadth are measured (depth is excluded)
+- Extreme occlusion, blur, or glare may require manual corner selection
+
+---
+
